@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="studentDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ASSESSMENT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Max_mark" Type="int" Nullable="false" />
+    <Property Name="grade" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="ProgramID" Type="int" Nullable="false" />
+    <Property Name="ModuleID" Type="int" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="COHORT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="a_year" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="COURSE_ENROLLMENT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="int" Nullable="false" />
+    <Property Name="CohortID" Type="int" Nullable="false" />
+    <Property Name="ProgramID" Type="int" Nullable="false" />
+    <Property Name="ModuleID" Type="int" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedDate" Type="date" />
+    <Property Name="Grade" Type="varchar" MaxLength="250" />
+    <Property Name="Mark" Type="int" />
+    <Property Name="AssessmentID" Type="int" />
+  </EntityType>
+  <EntityType Name="MODULE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Max_mark" Type="int" Nullable="false" />
+    <Property Name="ProgramID" Type="int" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedDate" Type="date" />
+    <Property Name="ModuleType" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PROGRAM">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Duration" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CohortID" Type="int" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedDate" Type="date" />
+    <Property Name="NumberofModule" Type="int" />
+  </EntityType>
+  <EntityType Name="STUDENT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="ProgramID" Type="int" Nullable="false" />
+    <Property Name="Duration" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CohortID" Type="int" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_ASSESSMENT_MODULE">
+    <End Role="MODULE" Type="Self.MODULE" Multiplicity="1" />
+    <End Role="ASSESSMENT" Type="Self.ASSESSMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MODULE">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ASSESSMENT">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ASSESSMENT_PROGRAM">
+    <End Role="PROGRAM" Type="Self.PROGRAM" Multiplicity="1" />
+    <End Role="ASSESSMENT" Type="Self.ASSESSMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROGRAM">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ASSESSMENT">
+        <PropertyRef Name="ProgramID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURSE_ENROLLMENT_COHORT">
+    <End Role="COHORT" Type="Self.COHORT" Multiplicity="1" />
+    <End Role="COURSE_ENROLLMENT" Type="Self.COURSE_ENROLLMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COHORT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="COURSE_ENROLLMENT">
+        <PropertyRef Name="CohortID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURSE_ENROLLMENT_MODULE">
+    <End Role="MODULE" Type="Self.MODULE" Multiplicity="1" />
+    <End Role="COURSE_ENROLLMENT" Type="Self.COURSE_ENROLLMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MODULE">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="COURSE_ENROLLMENT">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURSE_ENROLLMENT_PROGRAM">
+    <End Role="PROGRAM" Type="Self.PROGRAM" Multiplicity="1" />
+    <End Role="COURSE_ENROLLMENT" Type="Self.COURSE_ENROLLMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROGRAM">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="COURSE_ENROLLMENT">
+        <PropertyRef Name="ProgramID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURSE_ENROLLMENT_STUDENT">
+    <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="1" />
+    <End Role="COURSE_ENROLLMENT" Type="Self.COURSE_ENROLLMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STUDENT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="COURSE_ENROLLMENT">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MODULE_PROGRAM">
+    <End Role="PROGRAM" Type="Self.PROGRAM" Multiplicity="1" />
+    <End Role="MODULE" Type="Self.MODULE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROGRAM">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MODULE">
+        <PropertyRef Name="ProgramID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="studentDBModelStoreContainer">
+    <EntitySet Name="ASSESSMENT" EntityType="Self.ASSESSMENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COHORT" EntityType="Self.COHORT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COURSE_ENROLLMENT" EntityType="Self.COURSE_ENROLLMENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MODULE" EntityType="Self.MODULE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PROGRAM" EntityType="Self.PROGRAM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="STUDENT" EntityType="Self.STUDENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ASSESSMENT_MODULE" Association="Self.FK_ASSESSMENT_MODULE">
+      <End Role="MODULE" EntitySet="MODULE" />
+      <End Role="ASSESSMENT" EntitySet="ASSESSMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ASSESSMENT_PROGRAM" Association="Self.FK_ASSESSMENT_PROGRAM">
+      <End Role="PROGRAM" EntitySet="PROGRAM" />
+      <End Role="ASSESSMENT" EntitySet="ASSESSMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURSE_ENROLLMENT_COHORT" Association="Self.FK_COURSE_ENROLLMENT_COHORT">
+      <End Role="COHORT" EntitySet="COHORT" />
+      <End Role="COURSE_ENROLLMENT" EntitySet="COURSE_ENROLLMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURSE_ENROLLMENT_MODULE" Association="Self.FK_COURSE_ENROLLMENT_MODULE">
+      <End Role="MODULE" EntitySet="MODULE" />
+      <End Role="COURSE_ENROLLMENT" EntitySet="COURSE_ENROLLMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURSE_ENROLLMENT_PROGRAM" Association="Self.FK_COURSE_ENROLLMENT_PROGRAM">
+      <End Role="PROGRAM" EntitySet="PROGRAM" />
+      <End Role="COURSE_ENROLLMENT" EntitySet="COURSE_ENROLLMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURSE_ENROLLMENT_STUDENT" Association="Self.FK_COURSE_ENROLLMENT_STUDENT">
+      <End Role="STUDENT" EntitySet="STUDENT" />
+      <End Role="COURSE_ENROLLMENT" EntitySet="COURSE_ENROLLMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MODULE_PROGRAM" Association="Self.FK_MODULE_PROGRAM">
+      <End Role="PROGRAM" EntitySet="PROGRAM" />
+      <End Role="MODULE" EntitySet="MODULE" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
