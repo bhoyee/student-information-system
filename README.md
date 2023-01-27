@@ -70,6 +70,7 @@ The BLL Folder take care of all the business logic of the app which include an I
 This the layer that do database processing .
 Inside this proceeding I have Data Access Object and Data Transfer Object .
 The DTO is able to transfer value between classes and also hold the values together
+
 ![image](https://user-images.githubusercontent.com/61748811/215202424-a1ca974b-8ec8-4c7f-ba21-3ee55b5d4fcc.png)
 
 
