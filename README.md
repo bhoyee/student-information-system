@@ -51,13 +51,18 @@ Admin can view student report which have the details on the student with the gra
 The system is split into Presentation layer, Business logic layer , Data Layer and the Database
 This gives the view of how the system works with the main component and the services they provided and how they communicated between each other.
 The System is implemented using Multi-Layer Architecture with Facade Design Pattern and Ado.net to access the database (SQL Server).
+![image](https://user-images.githubusercontent.com/61748811/215202213-cb0e90db-7d5c-4fe0-a255-a0e6718c40a8.png)
 
 
 ### Presentation Layer
 This is the most top most level of the application and it’s the user interface which contain the forms and the main function of this interface is to translate the task and result to something user can understand.
+![image](https://user-images.githubusercontent.com/61748811/215202321-67a5d3b1-594e-44f7-8f36-e104e8391776.png)
+
 
 ### Logic Layer
 This contains the business layer (BLL) and this coordinates the app process command and makes logical decision and evaluation as well as performance calculation. It also helps in moving process data between data layer and presentation layer.
+![image](https://user-images.githubusercontent.com/61748811/215202379-3187404d-0cae-40a5-9300-b7fc688c823b.png)
+
 
 The BLL Folder take care of all the business logic of the app which include an Interface that define the core functionality which include INSERT, UPDATE DELETE AND SELECT
 
@@ -65,13 +70,17 @@ The BLL Folder take care of all the business logic of the app which include an I
 This the layer that do database processing .
 Inside this proceeding I have Data Access Object and Data Transfer Object .
 The DTO is able to transfer value between classes and also hold the values together
+![image](https://user-images.githubusercontent.com/61748811/215202424-a1ca974b-8ec8-4c7f-ba21-3ee55b5d4fcc.png)
+
 
 ## USE CASE MODEL
+![image](https://user-images.githubusercontent.com/61748811/215202464-8ef969f0-36cc-4747-a846-0d10952374c3.png)
+
 Entity Relationship Diagram
-Diagram of data model
+![image](https://user-images.githubusercontent.com/61748811/215202521-c086f8c6-fb66-479d-9d91-4d098373fc19.png)
 
-
-## Entity Relationship Diagram
+Sample Interface
+![image](https://user-images.githubusercontent.com/61748811/215202757-cc3aa398-2446-4771-8f9c-28ab566b4c0f.png)
 
 
 ### Note
